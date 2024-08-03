@@ -1,6 +1,6 @@
 "use client";
 
-import { createTodos } from "../lib/action";
+import { createUser } from "../lib/action";
 import { useRef } from "react";
 import SubmitButton from "./SubmitButton";
 
@@ -12,7 +12,7 @@ export default function Forms() {
       ref={ref}
       action={async (FormData) => {
         ref.current?.reset();
-        await createTodos(FormData);
+        await createUser(FormData);
       }}
       className="flex flex-col"
     >

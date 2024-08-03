@@ -1,19 +1,16 @@
 "use server";
-import Todo from "../models/todoModel";
+import User from "../models/User";
 import { revalidatePath } from "next/cache";
 import { connectToMongoDB } from "./db";
 
-export const createTodos = async (formData: FormData) => {
+export const createUser = async (formData: FormData) => {
   await connectToMongoDB();
   // Extracting todo content and time from formData
   const todo = formData.get("todo");
   const todoDeadline = formData.get("todoDeadline");
   try {
     // Creating a new todo using Todo model
-    const newTodo = await Todo.create({
-      todo,
-      todoDeadline,
-    });
+    const newTodo = await User.create({});
     // Saving the new todo
     newTodo.save();
     // Triggering revalidation of the specified path ("/")
@@ -26,12 +23,12 @@ export const createTodos = async (formData: FormData) => {
   }
 };
 
-export const deleteTodo = async (id: FormData) => {
+export const deleteUser = async (id: FormData) => {
   // Extracting todo ID from formData
   const todoId = id.get("id");
   try {
     // Deleting the todo with the specified ID
-    await Todo.deleteOne({ _id: todoId });
+    await User.deleteOne({ _id: todoId });
     // Triggering revalidation of the specified path ("/")
     revalidatePath("/");
     // Returning a success message after deleting the todo
