@@ -1,4 +1,5 @@
 import mongoose, { Connection } from "mongoose";
+const { MONGODB_URL } = process.env;
 
 let cachedConnection: Connection | null = null;
 
@@ -8,7 +9,7 @@ export async function connectToMongoDB() {
     return cachedConnection;
   }
   try {
-    const cnx = await mongoose.connect(process.env.MONGODB_URL!);
+    const cnx = await mongoose.connect(MONGODB_URL as string);
 
     cachedConnection = cnx.connection;
 
