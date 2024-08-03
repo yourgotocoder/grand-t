@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 
 interface User {
   id: string;
-  user_unique_id: number;
+  // user_unique_id: number;
   // other properties
 }
 
@@ -37,7 +37,6 @@ export const authOptions: NextAuthOptions = {
         // Transform the user document into the expected User type
         const user: User = {
           id: userDocument._id.toString(),
-          user_unique_id: userDocument.user_unique_id,
           // map other properties if needed
         };
 

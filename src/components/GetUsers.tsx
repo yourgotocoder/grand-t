@@ -1,4 +1,4 @@
-import { deleteTodo } from "../lib/action";
+import { deleteUser } from "../lib/action";
 import User from "../models/User";
 import React from "react";
 
@@ -14,8 +14,8 @@ export default async function GetTodosUI() {
             <div key={user._id}>
               <h3>{user.name as string}</h3>
               <p>{user.email}</p>
-              <p>{user.regno}</p>
-              <form action={deleteTodo}>
+              <p>{user.user_unique_id}</p>
+              <form action={deleteUser}>
                 <input
                   hidden
                   type="text"

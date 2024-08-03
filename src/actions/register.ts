@@ -1,10 +1,10 @@
 "use server";
-import { connectToMongoDB } from "../../lib/db";
-import User from "../../models/User";
+import { connectToMongoDB } from "@/lib/db";
+import User from "@/models/User";
 import bcrypt from "bcryptjs";
 
 export const register = async (values: any) => {
-  const { email, password, name } = values;
+  const { email, password, name, user_unique_id } = values;
 
   try {
     await connectToMongoDB();
@@ -18,6 +18,7 @@ export const register = async (values: any) => {
     const user = new User({
       name,
       email,
+      user_unique_id,
       password: hashedPassword,
     });
     const savedUser = await user.save();
