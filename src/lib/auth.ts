@@ -40,11 +40,32 @@ export const authOptions: NextAuthOptions = {
           // map other properties if needed
         };
 
-        return user;
+        console.log(user);
+
+        return {
+          ...user,
+        };
       },
     }),
   ],
   session: {
     strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user, account, profile, isNewUser }) {
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        console.log(token);
+        await connectToMongoDB();
+        const user_doc = await User.findOne({ _id: token.sub });
+        console.log(user_doc);
+        if (user_doc && session.user) {
+          session.user.name = user_doc._id.toString();
+        }
+      }
+      return session;
+    },
   },
 };

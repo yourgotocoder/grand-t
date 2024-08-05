@@ -2,7 +2,6 @@
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 export default function Login() {
   const [error, setError] = useState("");
@@ -50,13 +49,6 @@ export default function Login() {
         <button className="w-full border border-solid border-black rounded">
           Sign In
         </button>
-
-        <Link
-          href="/register"
-          className="text-sm text-[#888] transition duration-150 ease hover:text-black"
-        >
-          Don&apos;t have an account?
-        </Link>
       </form>
     </section>
   );

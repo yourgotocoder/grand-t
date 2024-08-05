@@ -1,14 +1,15 @@
 "use client";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { register } from "@/actions/register";
+import { useSession } from "next-auth/react";
 
 export default function Register() {
   const [error, setError] = useState<string>();
   const router = useRouter();
   const ref = useRef<HTMLFormElement>(null);
-
+  const { status } = useSession();
   const handleSubmit = async (formData: FormData) => {
     const r = await register({
       email: formData.get("email"),
@@ -24,6 +25,12 @@ export default function Register() {
       return router.push("/login");
     }
   };
+
+  useEffect(() => {
+    if (status == "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status]);
 
   return (
     <section className="w-full h-screen flex items-center justify-center">
