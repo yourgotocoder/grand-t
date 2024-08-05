@@ -1,12 +1,12 @@
 "use client";
-import { getSession, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { status, data } = useSession();
+  console.log(data);
   const router = useRouter();
-  getSession().then((data) => console.log(data));
   const showSession = () => {
     if (status === "authenticated") {
       return (
@@ -18,7 +18,7 @@ export default function Home() {
             });
           }}
         >
-          Sign Out
+          Sign Out {JSON.stringify(data)}
         </button>
       );
     } else if (status === "loading") {
