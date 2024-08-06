@@ -1,43 +1,12 @@
-"use client";
-import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { auth } from "@/auth";
 
-export default function Home() {
-  const { status, data } = useSession();
-  console.log(data);
-  const router = useRouter();
-  const showSession = () => {
-    if (status === "authenticated") {
-      return (
-        <button
-          className="border border-solid border-black rounded"
-          onClick={() => {
-            signOut({ redirect: false }).then(() => {
-              router.push("/");
-            });
-          }}
-        >
-          Sign Out {JSON.stringify(data)}
-        </button>
-      );
-    } else if (status === "loading") {
-      return <span className="text-[#888] text-sm mt-7">Loading...</span>;
-    } else {
-      return (
-        <Link
-          href="/login"
-          className="border border-solid border-black rounded"
-        >
-          Sign In
-        </Link>
-      );
-    }
-  };
+export default async function Home() {
+  const session = await auth();
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-xl">Home</h1>
-      {showSession()}
+    <main>
+      <h1 className="text-3xl font-bold">Home Page</h1>
+      <pre>{JSON.stringify(session)}</pre>
     </main>
   );
 }

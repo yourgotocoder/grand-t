@@ -1,5 +1,5 @@
-import { connectToMongoDB } from "./lib/db";
-import User from "./models/User";
+import { connectToMongoDB } from "@/lib/db";
+import User from "@/models/User";
 import credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";

@@ -34,6 +34,7 @@ const UserSchema = new Schema<IUserDocument>(
     password: {
       type: String,
       required: true,
+      select: false,
     },
     user_unique_id: {
       type: Number,

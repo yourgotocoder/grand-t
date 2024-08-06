@@ -10,7 +10,7 @@ export default function Login() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const res = await signIn("credentials", {
-      user_unique_id: formData.get("user_unique_id"),
+      user_id: formData.get("user_unique_id"),
       password: formData.get("password"),
       redirect: false,
     });
