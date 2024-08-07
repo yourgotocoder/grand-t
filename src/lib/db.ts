@@ -1,23 +1,11 @@
-import mongoose, { Connection } from "mongoose";
-const { MONGODB_URL } = process.env;
+// lib/db.ts
 
-let cachedConnection: Connection | null = null;
+import { PrismaClient } from "@prisma/client";
 
-export async function connectToMongoDB() {
-  if (cachedConnection) {
-    console.log("Using cached db connection");
-    return cachedConnection;
-  }
-  try {
-    const cnx = await mongoose.connect(MONGODB_URL as string);
-
-    cachedConnection = cnx.connection;
-
-    console.log("New mongodb connection established");
-
-    return cachedConnection;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+declare global {
+  var prisma: PrismaClient | undefined;
 }
+
+export const db = globalThis.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalThis.prisma = db;

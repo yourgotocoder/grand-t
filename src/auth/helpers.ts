@@ -1,2 +1,10 @@
 "use server";
-import { signIn, signOut } from "@/auth";
+import { signIn as naSignIn, signOut as naSignOut } from "@/auth";
+
+export async function signIn() {
+  await naSignIn();
+}
+
+export async function signOut() {
+  await naSignOut();
+}

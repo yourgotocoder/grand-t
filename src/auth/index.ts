@@ -37,7 +37,7 @@ const authOptions: NextAuthConfig = {
 
         if (!passwordMatch) throw new Error("Wrong Password");
 
-        return { ...user, role: user.role ?? "student" };
+        return user;
       },
     }),
   ],
